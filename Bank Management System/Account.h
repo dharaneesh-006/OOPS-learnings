@@ -20,14 +20,7 @@ class Account {
             cout << "Deposited: " << amount << ", New Balance: " << balance << endl;
         }
 
-        void withdraw(double amount) {
-            if (amount > balance)
-                cout << "Insufficient funds!" << endl;
-            else {
-                balance -= amount;
-                cout << "Withdrawn: " << amount << ", New Balance: " << balance << endl;
-            }
-        }
+        virtual void withdraw(double amount) = 0;
 
         double get_balance() {
             return balance;
@@ -56,8 +49,28 @@ class SavingsAccount : public Account{
         {
             balance = balance + (balance * interest_rate);
         }
+        void withdraw(double amount)
+        {
+            if (amount > balance)
+                cout << "Insufficient funds!" << endl;
+            else {
+                balance -= amount;
+                cout << "Withdrawn: " << amount << ", New Balance: " << balance << endl;
+            }
+        }
 };
 
 class CurrentAccount : public Account{
-    
-}
+
+    public:
+        CurrentAccount (string id, double balance) : Account(id,"current",balance)
+        {
+            
+        }
+
+        void withdraw(double amount) override
+        {
+            balance -= amount;
+            cout << "Withdrawn: " << amount << ", New Balance: " << balance << endl;
+        }
+};

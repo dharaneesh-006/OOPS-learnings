@@ -23,7 +23,7 @@ public:
         }
         cout <<  "All Accounts Cleared !!" << endl;
     }
-    
+
     void add_account(string id, string type, double balance) {
         if(type == "savings")
         {
@@ -69,6 +69,28 @@ public:
             }
         }
         return nullptr;
-        
+    }
+
+    void transfer(string from_id, string to_id, double amount)
+    {
+        Account* from = get_account(from_id);
+        Account* to = get_account(to_id);
+        if(from)
+        {
+            from->withdraw(amount);
+        }
+        else{
+            cout << "Sender Account not found !!" << endl ;
+            return;
+        }
+        if(to)
+        {
+            to->deposit(amount);
+        }
+        else{
+            cout << "Receiver Account not found !!" << endl ;
+            return;
+        }
+
     }
 };
